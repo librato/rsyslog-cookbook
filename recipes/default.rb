@@ -60,6 +60,13 @@ bash "install_rsyslog" do
   only_if { !File.exist?("/tmp/#{filename}/tools/rsyslogd") }
 end
 
+cookbook_file "/etc/init/rsyslog.conf" do
+  source "rsyslog.upstart.conf"
+  owner "root"
+  group "root"
+  mode 0644
+end
+
 service "rsyslog" do
   provider Chef::Provider::Service::Upstart
   supports :restart => true, :reload => true
@@ -94,5 +101,6 @@ if platform?("ubuntu")
     owner "root"
     group "root"
     mode 0644
+    notifies :restart, resources(:service => "rsyslog"), :delayed
   end
 end
