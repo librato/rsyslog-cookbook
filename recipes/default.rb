@@ -50,7 +50,7 @@ bash "install_rsyslog" do
   user "root"
   cwd "/tmp/#{filename}"
   code <<-EOH
-  ./configure --libdir=/lib --sbindir=/usr/sbin \
+  ./configure --libdir=/usr/lib --sbindir=/usr/sbin \
       --enable-gnutls \
       --enable-imfile \
       --enable-imtemplate \
