@@ -23,3 +23,5 @@ default[:rsyslog][:protocol] = "tcp"
 
 # What version to install. Should follow the latest release line
 default[:rsyslog][:version] = "5.8.5"
+# Checksum of package file (must be updated along with version)
+default[:rsyslog][:checksum] = "a519704c06de1026847f69d99f31a2a32783e9547f5249dddefe805bfbc3ea50"

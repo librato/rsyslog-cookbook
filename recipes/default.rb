@@ -34,7 +34,7 @@ url = "http://rsyslog.com/files/download/rsyslog/#{filename}.tar.gz"
 remote_file "/tmp/#{filename}.tar.gz" do
   source url
   mode "0644"
-  checksum "a519704c06de1026847f69d99f31a2a32783e9547f5249dddefe805bfbc3ea50"
+  checksum node[:rsyslog][:checksum]
 end
 
 bash "extract_rsyslog" do
@@ -78,6 +78,7 @@ cookbook_file "/etc/default/rsyslog" do
   owner "root"
   group "root"
   mode 0644
+  notifies :restart, resources(:service => "rsyslog"), :delayed
 end
 
 directory "/etc/rsyslog.d" do
