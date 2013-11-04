@@ -31,7 +31,7 @@ end
 filename = "rsyslog-%s" % node[:rsyslog][:version]
 url = "http://rsyslog.com/files/download/rsyslog/#{filename}.tar.gz"
 
-remote_file "/tmp/#{filename}.tar.gz" do
+remote_file "#{Chef::Config[:file_cache_path]}/#{filename}.tar.gz" do
   source url
   mode "0644"
   checksum node[:rsyslog][:checksum]
@@ -39,16 +39,16 @@ end
 
 bash "extract_rsyslog" do
   user "root"
-  cwd "/tmp"
+  cwd Chef::Config[:file_cache_path]
   code <<-EOH
   tar zxf #{filename}.tar.gz
   EOH
-  only_if { !File.exist?("/tmp/#{filename}") }
+  only_if { !File.exist?("#{Chef::Config[:file_cache_path]}/#{filename}") }
 end
 
 bash "install_rsyslog" do
   user "root"
-  cwd "/tmp/#{filename}"
+  cwd "#{Chef::Config[:file_cache_path]}/#{filename}"
   code <<-EOH
   ./configure --libdir=/usr/lib --sbindir=/usr/sbin \
       --enable-gnutls \
@@ -57,7 +57,7 @@ bash "install_rsyslog" do
       --enable-omtemplate && \
   make install
   EOH
-  only_if { !File.exist?("/tmp/#{filename}/tools/rsyslogd") }
+  only_if { !File.exist?("#{Chef::Config[:file_cache_path]}/#{filename}/tools/rsyslogd") }
 end
 
 cookbook_file "/etc/init/rsyslog.conf" do
