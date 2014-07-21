@@ -87,6 +87,12 @@ directory "/etc/rsyslog.d" do
   mode 0755
 end
 
+directory "/var/spool/rsyslog" do
+  owner "root"
+  group "root"
+  mode 0700
+end
+
 template "/etc/rsyslog.conf" do
   source "rsyslog.conf.erb"
   owner "root"
