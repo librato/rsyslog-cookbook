@@ -87,7 +87,7 @@ directory "/etc/rsyslog.d" do
   mode 0755
 end
 
-directory "/var/spool/rsyslog" do
+directory node[:rsyslog][:work_dir] do
   owner "root"
   group "root"
   mode 0700

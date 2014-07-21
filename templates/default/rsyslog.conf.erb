@@ -38,6 +38,9 @@ $FileOwner root
 $FileGroup adm
 $FileCreateMode 0640
 
+# Where state files for WatchFiles should be stored
+$WorkDirectory <%= node[:rsyslog][:work_dir] %>
+
 #
 # Include all config files in /etc/rsyslog.d/
 #

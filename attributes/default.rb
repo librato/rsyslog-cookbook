@@ -20,6 +20,7 @@
 default[:rsyslog][:log_dir] = "/srv/rsyslog"
 default[:rsyslog][:server] = false
 default[:rsyslog][:protocol] = "tcp"
+default[:rsyslog][:work_dir] = "/var/spool/rsyslog"
 
 # What version to install. Should follow the latest release line
 default[:rsyslog][:version] = "5.8.5"
